@@ -68,3 +68,27 @@ Maheswari
 
 ## Project Status
 Learning and development project.
+
+
+## Screenshots
+
+### JobSphere Homepage
+![Homepage](Screenshot 2026-11-02 121859.png)
+
+### Homepage Part 2
+![Homepage](Screenshot 2026-11-02 122003.png )
+
+### Homepage Part 3
+![Homepage](Screenshot 2026-11-02 122020.png)
+
+
+
+
+
+
+
+
+
+
+
+
