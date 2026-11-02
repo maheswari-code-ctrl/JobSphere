@@ -1,0 +1,349 @@
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>JobSphere</title>
+</head>
+<body>
+    <h1>Welcome to JobSphere</h1>
+    <p>Find your dream job here.</p>
+
+    <h2>Latest Jobs</h2>
+
+    <h3>Python Developer</h3>
+    <p>Company: ABC Technologies</p>
+    <p>Location: Hyderabad</p>
+
+    <button>Apply Now</button>
+</body>
+</html> -->
+<!-- {% load static %}
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <title>JobSphere</title>
+    <link rel="stylesheet" href="{% static 'jobs/style.css' %}">
+</head>
+<body>
+    <h1>Welcome to JobSphere</h1>
+    <h2>Latest Jobs</h2>
+
+    {% for job in jobs %}
+        <div class="job-card">
+            <h3>{{ job.title }}</h3>
+            <p>Company: {{ job.company }}</p>
+            <p>Location: {{ job.location }}</p>
+            <button>Apply Now</button>
+            <hr>
+        </div>
+    {% endfor %}
+
+</body>
+</html> -->
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobSphere | Find Your Dream Job</title>
+    <link rel="stylesheet" href="{% static 'jobs/style.css' %}">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="/" class="logo">✦ JobSphere</a>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="#jobs">Find Jobs</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+
+        <div class="user-info">
+            {% if user.is_authenticated %}
+                <span>Welcome, {{ user.username }}!</span>
+                <a href="{% url 'candidate_dashboard' %}">Dashboard</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}" class="register-link">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-tag">YOUR CAREER STARTS HERE</span>
+        <h1>Find a Job That<br><span>Moves You Forward.</span></h1>
+        <p>Explore opportunities, connect with companies and build the future you want.</p>
+
+        <div class="hero-stats">
+            <div><strong>Explore</strong><small>New opportunities</small></div>
+            <div><strong>Discover</strong><small>Great companies</small></div>
+            <div><strong>Grow</strong><small>Your career</small></div>
+        </div>
+    </div>
+
+    <div class="hero-visual">
+        <div class="hero-circle">🚀</div>
+        <div class="floating-card card-one">💼 Find your opportunity</div>
+        <div class="floating-card card-two">⭐ Build your future</div>
+    </div>
+</section>
+
+
+<section class="search-area">
+    <h2>Find Your Next Opportunity</h2>
+    <p>Search jobs by title, company, location or category.</p>
+
+    <form method="get" action="/" class="search-form">
+        <input type="text" name="q"
+               placeholder="Search job title, company or location"
+               value="{{ query }}">
+
+        <select name="job_type">
+            <option value="">All Job Types</option>
+            <option value="Full Time" {% if selected_type == "Full Time" %}selected{% endif %}>Full Time</option>
+            <option value="Part Time" {% if selected_type == "Part Time" %}selected{% endif %}>Part Time</option>
+            <option value="Internship" {% if selected_type == "Internship" %}selected{% endif %}>Internship</option>
+        </select>
+
+        <select name="category">
+            <option value="">All Categories</option>
+            <option value="Python" {% if selected_category == "Python" %}selected{% endif %}>Python</option>
+            <option value="Java" {% if selected_category == "Java" %}selected{% endif %}>Java</option>
+            <option value="Frontend" {% if selected_category == "Frontend" %}selected{% endif %}>Frontend</option>
+            <option value="Backend" {% if selected_category == "Backend" %}selected{% endif %}>Backend</option>
+            <option value="Data Science" {% if selected_category == "Data Science" %}selected{% endif %}>Data Science</option>
+        </select>
+
+        <select name="sort">
+            <option value="newest" {% if sort_by == "newest" %}selected{% endif %}>Latest Jobs</option>
+            <option value="oldest" {% if sort_by == "oldest" %}selected{% endif %}>Oldest Jobs</option>
+        </select>
+
+        <select name="salary_sort">
+            <option value="">Salary Sorting</option>
+            <option value="high" {% if salary_sort == "high" %}selected{% endif %}>High to Low</option>
+            <option value="low" {% if salary_sort == "low" %}selected{% endif %}>Low to High</option>
+        </select>
+
+        <button type="submit">Search Jobs →</button>
+    </form>
+</section>
+<!-- Popular Job Categories -->
+
+<section class="categories-section">
+
+    <div class="categories-heading">
+        <span class="section-tag">EXPLORE BY CATEGORY</span>
+        <h2>Popular Job Categories</h2>
+        <p>Find opportunities that match your skills.</p>
+    </div>
+
+    <div class="categories-container">
+
+        <a href="/?category=Python" class="category-card">
+            <div class="category-icon">🐍</div>
+            <h3>Python Developer</h3>
+            <p>Backend & Full Stack</p>
+            <span>Explore Jobs →</span>
+        </a>
+
+        <a href="/?category=Java" class="category-card">
+            <div class="category-icon">☕</div>
+            <h3>Java Developer</h3>
+            <p>Java & Spring Boot</p>
+            <span>Explore Jobs →</span>
+        </a>
+
+        <a href="/?category=Frontend" class="category-card">
+            <div class="category-icon">⚛️</div>
+            <h3>Frontend Developer</h3>
+            <p>HTML, CSS & React</p>
+            <span>Explore Jobs →</span>
+        </a>
+
+        <a href="/?category=Backend" class="category-card">
+            <div class="category-icon">💻</div>
+            <h3>Backend Developer</h3>
+            <p>APIs & Databases</p>
+            <span>Explore Jobs →</span>
+        </a>
+
+        <a href="/?category=Data%20Science" class="category-card">
+            <div class="category-icon">📊</div>
+            <h3>Data Analyst</h3>
+            <p>SQL & Data Science</p>
+            <span>Explore Jobs →</span>
+        </a>
+
+    </div>
+
+</section>
+
+<section class="jobs-section" id="jobs">
+    <div class="section-heading">
+        <div>
+            <span class="section-tag">CAREER OPPORTUNITIES</span>
+            <h2>Latest Job Openings</h2>
+            <p class="subtitle">Find the role that matches your skills.</p>
+        </div>
+    </div>
+
+    <div class="job-container">
+        {% for job in jobs %}
+        <div class="job-card">
+            <div class="job-card-top">
+                <div class="company-icon">💻</div>
+                <span class="job-badge">{{ job.job_type }}</span>
+            </div>
+
+            <h3>{{ job.title }}</h3>
+            <p class="company-name">{{ job.company }}</p>
+
+            <div class="job-details">
+                <p>📍 {{ job.location }}</p>
+                <p>💰 {{ job.salary }}</p>
+                <p>🧩 {{ job.category }}</p>
+            </div>
+
+            <div class="job-actions">
+                <a href="{% url 'job_detail' job.id %}" class="apply-button">
+                    View & Apply →
+                </a>
+                <a href="{% url 'save_job' job.id %}" class="save-button">
+                    ♡ Save
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <p class="no-jobs">No matching jobs found. Try another search.</p>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        {% if jobs.has_previous %}
+            <a href="?q={{ query|urlencode }}&job_type={{ selected_type|urlencode }}&category={{ selected_category|urlencode }}&sort={{ sort_by }}&salary_sort={{ salary_sort }}&page={{ jobs.previous_page_number }}">← Previous</a>
+        {% endif %}
+
+        <span>Page {{ jobs.number }} of {{ jobs.paginator.num_pages }}</span>
+
+        {% if jobs.has_next %}
+            <a href="?q={{ query|urlencode }}&job_type={{ selected_type|urlencode }}&category={{ selected_category|urlencode }}&sort={{ sort_by }}&salary_sort={{ salary_sort }}&page={{ jobs.next_page_number }}">Next →</a>
+        {% endif %}
+    </div>
+</section>
+<!-- HOW IT WORKS SECTION -->
+
+<section class="how-it-works">
+
+    <div class="how-heading">
+        <span>HOW IT WORKS</span>
+        <h2>Get Your Dream Job in 3 Easy Steps</h2>
+        <p>Start your career journey with JobSphere.</p>
+    </div>
+
+    <div class="steps-container">
+
+        <div class="step-card">
+            <div class="step-number">01</div>
+            <h3>Search for Jobs</h3>
+            <p>Explore job opportunities based on your skills and interests.</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">02</div>
+            <h3>Apply for Jobs</h3>
+            <p>Choose a suitable job and submit your application.</p>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">03</div>
+            <h3>Get Hired</h3>
+            <p>Connect with recruiters and take the next step in your career.</p>
+        </div>
+
+    </div>
+
+</section>
+<!-- WHY CHOOSE JOBSPHERE -->
+
+<section class="why-choose">
+
+    <div class="why-heading">
+        <span>WHY JOBSPHERE?</span>
+        <h2>Build Your Career With Confidence</h2>
+        <p>Everything you need to find your next opportunity.</p>
+    </div>
+
+    <div class="why-container">
+
+        <div class="why-card">
+            <div class="why-icon">🔍</div>
+            <h3>Easy Job Search</h3>
+            <p>Find relevant jobs using simple search and filters.</p>
+        </div>
+
+        <div class="why-card">
+            <div class="why-icon">🏢</div>
+            <h3>Trusted Opportunities</h3>
+            <p>Explore job opportunities posted by recruiters.</p>
+        </div>
+
+        <div class="why-card">
+            <div class="why-icon">📄</div>
+            <h3>Simple Application</h3>
+            <p>Apply for jobs through an easy application process.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="about-section" id="about">
+    <span class="section-tag">ABOUT US</span>
+    <h2>Make Your Next Career Move With JobSphere</h2>
+    <p>
+        JobSphere helps job seekers explore career opportunities,
+        discover companies and find jobs that match their interests and skills.
+    </p>
+</section>
+
+
+<footer id="contact" class="site-footer">
+    <div class="footer-container">
+
+        <div class="footer-about">
+            <h2>✦ JobSphere</h2>
+            <p>Your journey to a brighter career starts here.</p>
+            <p>Discover opportunities and build your future with confidence.</p>
+        </div>
+
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <a href="/">Home</a>
+            <a href="/#jobs">Latest Jobs</a>
+            <a href="/#contact">Contact Us</a>
+        </div>
+
+        <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p>Email: careers@example.com</p>
+            <p>Find your next opportunity with JobSphere.</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 JobSphere. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | JobSphere</title>
+    <link rel="stylesheet" href="{% static 'jobs/style.css' %}">
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>JobSphere</h1>
+        <h2>Create Your Account</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p>Already have an account?
+            <a href="{% url 'login' %}">Login</a>
+        </p>
+
+        <a href="{% url 'home' %}">Back to Home</a>
+    </div>
+
+</body>
+</html>

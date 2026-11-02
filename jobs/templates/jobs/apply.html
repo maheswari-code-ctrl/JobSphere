@@ -1,0 +1,62 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for {{ job.title }} | JobSphere</title>
+    <link rel="stylesheet" href="{% static 'jobs/style.css' %}">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="/" class="logo">JobSphere</a>
+    <nav><a href="/">Home</a></nav>
+</header>
+
+<section class="jobs-section">
+    <div class="job-card">
+        <h2>Apply for {{ job.title }}</h2>
+        <p><strong>Company:</strong> {{ job.company }}</p>
+        <p><strong>Location:</strong> {{ job.location }}</p>
+
+       
+
+        <form method="post">
+            {% csrf_token %}
+
+            <p>
+                <label for="full_name">Full Name</label><br>
+                <input type="text" id="full_name" name="full_name"
+                       maxlength="100" required>
+            </p>
+
+            <p>
+                <label for="email">Email Address</label><br>
+                <input type="email" id="email" name="email"
+                       maxlength="254" required>
+            </p>
+
+            <p>
+                <label for="phone">Phone Number</label><br>
+                <input type="tel" id="phone" name="phone"
+                       maxlength="15" required>
+            </p>
+
+            <button type="submit" class="apply-button">
+                Submit Application
+            </button>
+        </form>
+
+        <p><a href="{% url 'job_detail' job.id %}">Back to Job Details</a></p>
+    </div>
+</section>
+
+<footer>
+    <h3>JobSphere</h3>
+    <p>Your career journey starts here.</p>
+</footer>
+
+</body>
+</html>

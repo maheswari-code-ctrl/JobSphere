@@ -1,0 +1,58 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ job.title }} | JobSphere</title>
+    <link rel="stylesheet" href="{% static 'jobs/style.css' %}">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="/" class="logo">JobSphere</a>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/#jobs">Find Jobs</a>
+    </nav>
+</header>
+
+<section class="jobs-section">
+    <div class="job-card">
+        <h1>{{ job.title }}</h1>
+
+        <p><strong>Company:</strong> {{ job.company }}</p>
+        <p><strong>Location:</strong> {{ job.location }}</p>
+        <p><strong>Job Type:</strong> {{ job.job_type }}</p>
+        <p><strong>Salary:</strong> {{ job.salary }}</p>
+
+        <hr>
+
+        <h2>Job Description</h2>
+        <p>{{ job.description|linebreaksbr }}</p>
+
+        <br>
+
+<a href="/" class="apply-button">Back to Jobs</a>
+
+{% if already_applied %}
+    <button class="apply-button" disabled>
+        Already Applied
+    </button>
+{% else %}
+    <a href="{% url 'apply_job' job.id %}" class="apply-button">
+        Apply Now
+    </a>
+{% endif %}
+</a>
+    </div>
+</section>
+
+<footer>
+    <h3>JobSphere</h3>
+    <p>Your career journey starts here.</p>
+</footer>
+
+</body>
+</html>

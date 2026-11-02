@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Candidate Dashboard</title>
+    <link rel="stylesheet" href="{% static 'jobs/style.css' %}">
+</head>
+
+<body>
+
+    <div class="candidate-dashboard">
+        <a href="{% url 'update_profile' %}">Update My Profile</a>
+<br><br>
+        <a href="{% url 'change_password' %}">Change Password</a>
+<br><br>
+
+        <h1>My Applications</h1>
+
+        <table>
+            <tr>
+                <th>Job Title</th>
+                <th>Company</th>
+                <th>Applied Date</th>
+                <th>Status</th>
+            </tr>
+
+            {% for application in applications %}
+            <tr>
+                <td>{{ application.job.title }}</td>
+                <td>{{ application.job.company }}</td>
+                <td>{{ application.applied_at }}</td>
+                <td>{{ application.status }}</td>
+            </tr>
+
+            {% empty %}
+            <tr>
+                <td colspan="4">You have not applied for any jobs yet.</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+        <h2>My Saved Jobs</h2>
+
+{% for saved in saved_jobs %}
+    <div class="job-card">
+        <h3>{{ saved.job.title }}</h3>
+        <p>Company: {{ saved.job.company }}</p>
+        <p>Location: {{ saved.job.location }}</p>
+        <p>Salary: {{ saved.job.salary }}</p>
+
+        <a href="{% url 'job_detail' saved.job.id %}">
+            View Job
+        </a>
+        <a href="{% url 'remove_saved_job' saved.id %}">
+        Remove Saved Job
+        </a>
+    </div>
+{% empty %}
+    <p>You haven't saved any jobs yet.</p>
+{% endfor %}
+
+        <a href="/" class="back-home">Back to Home</a>
+
+    </div>
+
+</body>
+</html>
